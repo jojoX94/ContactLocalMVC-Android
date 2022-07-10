@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ContactLocalSqlite</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="image_button_profile">Image button profile</string>
+    <string name="icon_more">Icon more</string>
+    // Toolbar
+    <string name="cancel">Cancel</string>
+    <string name="lbl_change_langage">Change langage</string>
+
+    // Home vIEW
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="lbl_sub_add_photo">Will only saved on the phone</string>
+    <string name="lbl_add_photo">Add Photo</string>
+    <string name="home_lbl_name">Add Name</string>
+    <string-array name="group">
+        <item>Family</item>
+        <item>Friends</item>
+        <item>Co-Worker</item>
+        <item>Business</item>
+    </string-array>
+    <string name="home_lbl_group">Insert inside a group</string>
+    <string name="home_group_family">Family</string>
+    <string name="home_group_friend">Friend</string>
+    <string name="home_group_business">Business</string>
+    <string name="home_group_work">Co-worker</string>
+    <string name="lbl_required">Required</string>
+    <string name="home_lbl_country">Select your area-cide</string>
+    <string name="home_txt_number">Your number</string>
+    <string name="btn_create">Create contact</string>
+    <string name="home_lbl_fields">Others fields</string>
+    <string name="drawer_lbl_title">My Contact</string>
+    <string name="drawer_search_hint">Search your contact</string>
+    <string name="delete">Delete</string>
+</resources>

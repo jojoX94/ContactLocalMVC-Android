@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ContactLocalSqlite</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="image_button_profile">Image button profile</string>
+    <string name="icon_more">Icon more</string>
+
+    // Toolbar
+    <string name="cancel">Annuler</string>
+    <string name="lbl_change_langage">Changer de langage</string>
+
+
+    // Home View
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="lbl_add_photo">Ajouter Photo</string>
+    <string name="home_lbl_name">Entrer Votre Nom</string>
+    <string name="lbl_sub_add_photo">Ce sera sauvegarder dans ce mobile</string>
+    <string-array name="group">
+        <item>Famille</item>
+        <item>Amis</item>
+        <item>Travail</item>
+        <item>Business</item>
+    </string-array>
+    <string name="home_lbl_group">Ajouter dans une groupe</string>
+    <string name="home_group_family">Famille</string>
+    <string name="home_group_friend">Ami(e)</string>
+    <string name="home_group_business">Business</string>
+    <string name="home_group_work">Travail</string>
+    <string name="lbl_required">Champ obligatoire</string>
+    <string name="home_lbl_country">Selectionner votre area-code</string>
+    <string name="home_txt_number">Votre numero</string>
+    <string name="btn_create">Creer le contact</string>
+    <string name="home_lbl_fields">Autres champs</string>
+    <string name="drawer_lbl_title">Mes Contacts</string>
+    <string name="drawer_search_hint">Chercher votre contact</string>
+    <string name="delete">Supprimer</string>
+</resources>
