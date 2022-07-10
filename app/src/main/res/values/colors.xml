@@ -21,4 +21,5 @@
     <color name="iconDarkTing">#BBC3CB</color>
     <color name="inputDarkText">#BFC1C2</color>
     <color name="primaryPinkText">#9C000000</color>
+    <color name="greyVeryLight">#ededed</color>
 </resources>

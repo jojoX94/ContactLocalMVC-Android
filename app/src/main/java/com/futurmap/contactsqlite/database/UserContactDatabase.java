@@ -98,4 +98,26 @@ public class UserContactDatabase extends SQLiteOpenHelper {
         // return contact list
         return contactList;
     }
+
+    // code to update the single contact
+    public int updateContact(UserContact contact) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, contact.getName());
+        values.put(KEY_ATTR, contact.getAttribution());
+        values.put(KEY_PH_NO, contact.getPhoneNumber());
+
+        // updating row
+        return db.update(TABLE_CONTACTS, values, KEY_ID + " = ?",
+                new String[]{String.valueOf(contact.getId())});
+    }
+
+    // Deleting single contact
+    public void deleteContact(UserContact contact) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CONTACTS, KEY_ID + " = ?",
+                new String[]{String.valueOf(contact.getId())});
+        db.close();
+    }
 }

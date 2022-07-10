@@ -33,6 +33,7 @@ import com.futurmap.contactsqlite.R;
 import com.futurmap.contactsqlite.database.UserContactDatabase;
 import com.futurmap.contactsqlite.databinding.FragmentHomeBinding;
 import com.futurmap.contactsqlite.model.UserContact;
+import com.futurmap.contactsqlite.screens.RootActivity;
 import com.futurmap.contactsqlite.theme.MyAppTheme;
 import com.futurmap.contactsqlite.utils.File;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -161,6 +162,8 @@ public class HomeFragment extends ThemeFragment {
                     if (!imageString.equals("")) {
 //                        userContact.setImage(imageString);
                     }
+                    RootActivity.contactList.add(userContact);
+                    RootActivity.adapter.notifyDataSetChanged();
                     db.addContact(userContact);
                     Log.i("db", "=>>>>>>>" + db.getContact(1));
 //                    viewModel.insert(userContact);

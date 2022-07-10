@@ -17,11 +17,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dolatkia.animatedThemeManager.AppTheme;
 import com.dolatkia.animatedThemeManager.ThemeActivity;
 import com.dolatkia.animatedThemeManager.ThemeManager;
 import com.futurmap.contactsqlite.R;
+import com.futurmap.contactsqlite.adapter.ContactAdapter;
+import com.futurmap.contactsqlite.database.UserContactDatabase;
 import com.futurmap.contactsqlite.databinding.ActivityRootBinding;
 import com.futurmap.contactsqlite.model.UserContact;
 import com.futurmap.contactsqlite.theme.DarkTheme;
@@ -36,6 +39,8 @@ import java.util.List;
 import nl.psdcompany.duonavigationdrawer.widgets.DuoDrawerToggle;
 
 public class RootActivity extends ThemeActivity {
+    public static ContactAdapter adapter;
+    public static List<UserContact> contactList;
     private final CharSequence[] langOptions = {"Anglais", "Francais"};
     private final CharSequence[] themeOptions = {"Dark", "Pink"};
     ActivityRootBinding binding;
@@ -43,6 +48,7 @@ public class RootActivity extends ThemeActivity {
     NavHostFragment navHostFragment;
     boolean isShowBottomDialog = false;
     List<UserContact> list = new ArrayList<>();
+    UserContactDatabase db;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -57,61 +63,66 @@ public class RootActivity extends ThemeActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityRootBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         init();
         navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         NavController navController = navHostFragment.getNavController();
 
-//        binding.myRecylerDrawer.setLayoutManager(new LinearLayoutManager(this));
-//        binding.myRecylerDrawer.setHasFixedSize(true);
-//        adapter = new ContactAdapter(new ContactAdapter.DetailsAdapterListener() {
-//            @Override
-//            public void delete(View v, int position, UserContact userContact) {
-//            }
-//
-//            @Override
-//            public void handleCall(View v, int position, UserContact userContact) {
-//                dialPhoneNumber(userContact.getPhoneNumber());
-//            }
-//
-//            @Override
-//            public void handleMessage(View v, int position, UserContact userContact) {
-//                composeMmsMessage(userContact.getPhoneNumber());
-//            }
-//
-//            @Override
-//            public boolean longClick(View v, int position, UserContact userContact) {
-//
-//                binding.actionsExtras.setVisibility(View.VISIBLE);
-//                binding.btnAnnul.setVisibility(View.VISIBLE);
-//                binding.btnAnnul.setOnClickListener(vi -> {
-//                    binding.actionsExtras.setVisibility(View.GONE);
-//                    binding.btnAnnul.setVisibility(View.GONE);
-//                });
-//                binding.btnDelete.setOnClickListener(vi -> {
-//                    for (UserContact item : list) {
-//                        viewModel.delete(item);
-//                    }
-//                });
-//                return false;
-//            }
-//
-//
-//            @Override
-//            public void checkChanged(boolean b, int position, UserContact userContact) {
-//                if (b) list.add(userContact);
-//                else list.remove(userContact);
-//                Log.i("check", position + "" + b);
-//            }
-//        });
+        binding.myRecylerDrawer.setLayoutManager(new LinearLayoutManager(this));
+        binding.myRecylerDrawer.setHasFixedSize(true);
+        adapter = new ContactAdapter(getApplicationContext(), contactList, new ContactAdapter.DetailsAdapterListener() {
+            @Override
+            public void delete(View v, int position, UserContact userContact) {
+            }
 
+            @Override
+            public void handleCall(View v, int position, UserContact userContact) {
+                dialPhoneNumber(userContact.getPhoneNumber());
+            }
+
+            @Override
+            public void handleMessage(View v, int position, UserContact userContact) {
+//                composeMmsMessage(userContact.getPhoneNumber());
+                Log.i("array", "=>" + position);
+            }
+
+            @Override
+            public boolean longClick(View v, int position) {
+
+                binding.actionsExtras.setVisibility(View.VISIBLE);
+                binding.btnAnnul.setVisibility(View.VISIBLE);
+                binding.btnAnnul.setOnClickListener(vi -> {
+                    binding.actionsExtras.setVisibility(View.GONE);
+                    binding.btnAnnul.setVisibility(View.GONE);
+                });
+                binding.btnDelete.setOnClickListener(vi -> {
+                    for (UserContact item : list) {
+                        contactList.remove(item);
+                        db.deleteContact(item);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                return false;
+            }
+
+
+            @Override
+            public void checkChanged(boolean b, int position, UserContact userContact) {
+                if (b) list.add(userContact);
+                else list.remove(userContact);
+                Log.i("check", position + "" + b);
+            }
+        });
+        binding.myRecylerDrawer.setAdapter(adapter);
         searchView();
 
     }
 
 
     public void init() {
+        db = new UserContactDatabase(getApplicationContext());
+        contactList = new ArrayList<>();
+        contactList.addAll(db.getAllContacts());
         setSupportActionBar(binding.toolbarRoot);
         DuoDrawerToggle duoDrawerToggle = new DuoDrawerToggle(this, binding.drawerLayout, binding.toolbarRoot, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         binding.drawerLayout.setDrawerListener(duoDrawerToggle);
